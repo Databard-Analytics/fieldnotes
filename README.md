@@ -29,7 +29,7 @@ Fieldnotes focuses on a tighter editorial format.
 
 - Astro
 - static build output
-- Vercel-friendly deployment setup
+- Vercel-first deployment setup
 - markdown-based content collections
 
 ## Project files
@@ -56,6 +56,22 @@ bun run dev
 ```bash
 bun run build
 ```
+
+## Vercel deployment
+
+Fieldnotes is configured so Vercel should only:
+
+- install dependencies with `bun install`
+- build with `bun run build`
+- publish the `dist` directory
+
+Deployment should **not** run:
+
+- linting
+- formatting checks
+- tests
+
+Those checks should live in a dedicated GitHub Actions CI pipeline instead of the deployment step.
 
 ## Publishing intent
 
