@@ -25,16 +25,37 @@ Fieldnotes focuses on a tighter editorial format.
 - **Notes**: concise reflections, frameworks, and practical takeaways
 - **Themes**: grouped topic areas for navigation and content organization
 
+## Site stack
+
+- Astro
+- static build output
+- Vercel-friendly deployment setup
+- markdown-based content collections
+
 ## Project files
 
 - `brand.md` — brand positioning and homepage structure
 - `writing.md` — tone and writing rules for Fieldnotes briefs
+- `src/content.config.ts` — content model definitions
 
-## Suggested content structure
+## Content locations
 
-- `content/briefs/` — dated markdown briefs
-- `content/notes/` — evergreen short notes and frameworks
-- `content/themes/` — theme definitions, indexes, and navigation references
+- `src/content/briefs/` — dated markdown briefs
+- `src/content/notes/` — evergreen short notes and frameworks
+- `src/content/themes/` — theme definitions and landing content
+
+## Local development
+
+```bash
+bun install
+bun run dev
+```
+
+## Build
+
+```bash
+bun run build
+```
 
 ## Publishing intent
 

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => {
+    const aTime = a.data.date ? a.data.date.getTime() : 0;
+    const bTime = b.data.date ? b.data.date.getTime() : 0;
+    return bTime - aTime;
+  });
+---
+
+<BaseLayout title="Notes" description="Short notes, frameworks, and practical takeaways from Fieldnotes.">
+  <div class="card-grid">
+    {notes.map((note) => (
+      <article class="card">
+        {note.data.date && <div class="meta">{note.data.date.toISOString().slice(0, 10)}</div>}
+        <h2><a href={`/notes/${note.id}/`}>{note.data.title}</a></h2>
+        {note.data.summary && <p>{note.data.summary}</p>}
+      </article>
+    ))}
+  </div>
+</BaseLayout>

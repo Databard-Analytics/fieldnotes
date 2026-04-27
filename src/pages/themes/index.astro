@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const themes = await getCollection('themes');
+---
+
+<BaseLayout title="Themes" description="The recurring themes inside Fieldnotes.">
+  <div class="card-grid">
+    {themes.map((theme) => (
+      <article class="card">
+        <h2><a href={`/themes/${theme.id}/`}>{theme.data.name}</a></h2>
+        <p>{theme.data.summary}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const briefs = (await getCollection('briefs', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Briefs" description="Daily briefs and short observations from Fieldnotes.">
+  <div class="card-grid">
+    {briefs.map((brief) => (
+      <article class="card">
+        <div class="meta">{brief.data.date.toISOString().slice(0, 10)}</div>
+        <h2><a href={`/briefs/${brief.id}/`}>{brief.data.title}</a></h2>
+        {brief.data.summary && <p>{brief.data.summary}</p>}
+      </article>
+    ))}
+  </div>
+</BaseLayout>

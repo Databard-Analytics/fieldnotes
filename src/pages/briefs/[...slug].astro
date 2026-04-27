@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const briefs = await getCollection('briefs', ({ data }) => !data.draft);
+  return briefs.map((brief) => ({
+    params: { slug: brief.id },
+    props: { brief }
+  }));
+}
+
+const { brief } = Astro.props;
+const { Content } = await render(brief);
+---
+
+<BaseLayout title={brief.data.title} description={brief.data.summary}>
+  <article class="card">
+    <div class="meta">{brief.data.date.toISOString().slice(0, 10)}</div>
+    {brief.data.theme && <div class="tag-list"><span class="tag">{brief.data.theme}</span></div>}
+    <Content />
+  </article>
+</BaseLayout>

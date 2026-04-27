@@ -1,0 +1,126 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Fieldnotes by Databard' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <style>
+      :root {
+        --bg: #f6f3ee;
+        --panel: #fffdf9;
+        --text: #1f2933;
+        --muted: #6b7280;
+        --accent: #1f4f7a;
+        --border: #e7dfd3;
+        --shadow: rgba(31, 41, 51, 0.06);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem 4rem;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+      }
+      .eyebrow {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+      }
+      .brand-title {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 3rem);
+      }
+      nav {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      nav a, a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .lede {
+        font-size: 1.05rem;
+        max-width: 70ch;
+        color: #334155;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.1rem 1.2rem;
+        box-shadow: 0 8px 24px var(--shadow);
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      h1, h2, h3 {
+        line-height: 1.15;
+      }
+      h2 { margin-top: 2.5rem; }
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+      .tag {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.3rem 0.65rem;
+        font-size: 0.85rem;
+        color: var(--muted);
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <div class="eyebrow">Databard</div>
+          <h1 class="brand-title">{title}</h1>
+          <p class="lede">Observations on strategy, intelligence, and coaching in an AI-shaped world.</p>
+        </div>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/briefs">Briefs</a>
+          <a href="/notes">Notes</a>
+          <a href="/themes">Themes</a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const themes = await getCollection('themes');
+  return themes.map((theme) => ({
+    params: { slug: theme.data.slug ?? theme.id.replace(/\.md$/, '') },
+    props: { theme }
+  }));
+}
+
+const { theme } = Astro.props;
+const { Content } = await render(theme);
+
+const allBriefs = await getCollection('briefs', ({ data }) => !data.draft);
+const allNotes = await getCollection('notes', ({ data }) => !data.draft);
+const briefs = allBriefs.filter((item) => item.data.theme === theme.data.slug);
+const notes = allNotes.filter((item) => item.data.theme === theme.data.slug);
+---
+
+<BaseLayout title={theme.data.name} description={theme.data.summary}>
+  <article class="card">
+    <Content />
+  </article>
+
+  {briefs.length > 0 && (
+    <section>
+      <h2>Briefs</h2>
+      <div class="card-grid">
+        {briefs.map((brief) => (
+          <article class="card">
+            <div class="meta">{brief.data.date.toISOString().slice(0, 10)}</div>
+            <h3><a href={`/briefs/${brief.id}/`}>{brief.data.title}</a></h3>
+            {brief.data.summary && <p>{brief.data.summary}</p>}
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {notes.length > 0 && (
+    <section>
+      <h2>Notes</h2>
+      <div class="card-grid">
+        {notes.map((note) => (
+          <article class="card">
+            <h3><a href={`/notes/${note.id}/`}>{note.data.title}</a></h3>
+            {note.data.summary && <p>{note.data.summary}</p>}
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
