@@ -1,9 +1,9 @@
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: 'https://fieldnotes.databard.co.uk',
+  site: "https://fieldnotes.databard.co.uk",
   integrations: [mdx(), sitemap()],
-  output: 'static'
+  output: "static",
 });

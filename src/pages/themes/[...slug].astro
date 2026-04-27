@@ -1,20 +1,20 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const themes = await getCollection('themes');
+  const themes = await getCollection("themes");
   return themes.map((theme) => ({
-    params: { slug: theme.data.slug ?? theme.id.replace(/\.md$/, '') },
-    props: { theme }
+    params: { slug: theme.data.slug ?? theme.id.replace(/\.md$/, "") },
+    props: { theme },
   }));
 }
 
 const { theme } = Astro.props;
 const { Content } = await render(theme);
 
-const allBriefs = await getCollection('briefs', ({ data }) => !data.draft);
-const allNotes = await getCollection('notes', ({ data }) => !data.draft);
+const allBriefs = await getCollection("briefs", ({ data }) => !data.draft);
+const allNotes = await getCollection("notes", ({ data }) => !data.draft);
 const briefs = allBriefs.filter((item) => item.data.theme === theme.data.slug);
 const notes = allNotes.filter((item) => item.data.theme === theme.data.slug);
 ---

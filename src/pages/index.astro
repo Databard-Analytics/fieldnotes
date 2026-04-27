@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
 
-const briefs = (await getCollection('briefs', ({ data }) => !data.draft))
+const briefs = (await getCollection("briefs", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 6);
 
-const notes = (await getCollection('notes', ({ data }) => !data.draft))
+const notes = (await getCollection("notes", ({ data }) => !data.draft))
   .sort((a, b) => {
     const aTime = a.data.date ? a.data.date.getTime() : 0;
     const bTime = b.data.date ? b.data.date.getTime() : 0;
@@ -14,7 +14,7 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft))
   })
   .slice(0, 4);
 
-const themes = await getCollection('themes');
+const themes = await getCollection("themes");
 ---
 
 <BaseLayout title="Fieldnotes" description="A public notebook of practical observations on AI, data, leadership, coaching, and strategic change.">
@@ -74,7 +74,7 @@ const themes = await getCollection('themes');
     <div class="card-grid">
       {themes.map((theme) => (
         <article class="card">
-          <h3><a href={`/themes/${theme.id}/`}>{theme.data.name}</a></h3>
+          <h3><a href={`/themes/${theme.data.slug ?? theme.id.replace(/\.md$/, "")}/`}>{theme.data.name}</a></h3>
           <p>{theme.data.summary}</p>
         </article>
       ))}

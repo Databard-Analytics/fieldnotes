@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const briefs = await getCollection('briefs', ({ data }) => !data.draft);
+  const briefs = await getCollection("briefs", ({ data }) => !data.draft);
   return briefs.map((brief) => ({
     params: { slug: brief.id },
-    props: { brief }
+    props: { brief },
   }));
 }
 

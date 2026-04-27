@@ -71,7 +71,16 @@ Deployment should **not** run:
 - formatting checks
 - tests
 
-Those checks should live in a dedicated GitHub Actions CI pipeline instead of the deployment step.
+Those checks live in GitHub Actions CI instead of the deployment step.
+
+## CI checks
+
+The GitHub Actions pipeline is responsible for:
+
+- `bun run format:check`
+- `bun run lint`
+- `bun run test`
+- `bun run build`
 
 ## Publishing intent
 

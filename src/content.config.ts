@@ -1,7 +1,7 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from "astro:content";
 
 const briefs = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     summary: z.string().optional(),
@@ -9,12 +9,12 @@ const briefs = defineCollection({
     tags: z.array(z.string()).default([]),
     theme: z.string().optional(),
     featured: z.boolean().default(false),
-    draft: z.boolean().default(false)
-  })
+    draft: z.boolean().default(false),
+  }),
 });
 
 const notes = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     summary: z.string().optional(),
@@ -22,17 +22,17 @@ const notes = defineCollection({
     tags: z.array(z.string()).default([]),
     theme: z.string().optional(),
     featured: z.boolean().default(false),
-    draft: z.boolean().default(false)
-  })
+    draft: z.boolean().default(false),
+  }),
 });
 
 const themes = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     name: z.string(),
     slug: z.string().optional(),
-    summary: z.string()
-  })
+    summary: z.string(),
+  }),
 });
 
 export const collections = { briefs, notes, themes };
